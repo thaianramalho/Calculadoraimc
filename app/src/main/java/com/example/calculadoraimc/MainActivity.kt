@@ -1,5 +1,6 @@
 package com.example.calculadoraimc
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -17,8 +18,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.calcular.setOnClickListener {
-            calcularIMC()
+            val resultado = calcularIMC()
+            binding.resultado.text = resultado
         }
+
+        binding.exportar.setOnClickListener {
+            val resultado = calcularIMC()  // Calcula o IMC e obtém o resultado
+            val intent = Intent(this, ExportActivity::class.java)
+            intent.putExtra("IMC_RESULT", resultado)  // Envia o resultado do IMC para a ExportActivity
+            startActivity(intent)
+        }
+
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -27,46 +38,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun calcularIMC() {
-        val nome = binding.nome.text.toString()
-        val idade = binding.idade.text.toString().toIntOrNull() ?: 0
-        val peso = binding.peso.text.toString().toDoubleOrNull() ?: 0.0
-        val altura = binding.altura.text.toString().toDoubleOrNull() ?: 1.0
 
-        val imc = if (altura != 0.0) peso / (altura * altura) else 0.0
+    private fun calcularIMC(): String {
+        val peso = binding.peso.text.toString().toDoubleOrNull()
+        val altura = binding.altura.text.toString().toDoubleOrNull()
 
-        var tabelaIMC = when {
-            imc < 16 -> "magreza grave"
-            imc in 16.0..16.9 -> "magreza moderada"
-            imc in 17.0..18.4 -> "magreza leve"
-            imc in 18.5..24.9 -> "peso ideal"
-            imc in 25.0..29.9 -> "sobrepeso"
-            imc in 30.0..34.9 -> "obesidade grau I"
-            imc in 35.0..39.9 -> "obesidade grau II ou severa"
-            imc >= 40 -> "obesidade grau III ou mórbida"
-            else -> "valor inválido"
-        }
+        if (peso != null && altura != null) {
+            val imc = peso / (altura * altura)
 
-        val resultado = binding.resultado
-        if (imc != 0.00) {
-            resultado.text =
-                "Olá, $nome! Seu IMC atual é de %.2f. Sua classificação atual é: $tabelaIMC".format(
-                    imc
-                )
-
+            return String.format("IMC: %.2f", imc)
         } else {
-            resultado.text = "Por favor, insira dados válidos."
-
+            return "Por favor, insira valores válidos para peso e altura."
         }
-
     }
 
-//    resultados menores que 16 — magreza grave;
-//    resultados entre 16 e 16,9 — magreza moderada;
-//    resultados entre 17 e 18,5 — magreza leve;
-//    resultados entre 18,6 e 24,9 — peso ideal;
-//    resultados entre 25 e 29,9 — sobrepeso;
-//    resultados entre 30 e 34,9 — obesidade grau I;
-//    resultados entre 35 e 39,9 — obesidade grau II ou severa;
-//    resultados maiores do que 40 — obesidade grau III ou mórbida.
+
 }

@@ -48,7 +48,7 @@
         android:id="@+id/idade"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="Idade"
         android:inputType="text"
@@ -60,7 +60,7 @@
         android:id="@+id/peso"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="Peso"
         android:inputType="text"
@@ -73,7 +73,7 @@
         android:id="@+id/altura"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="Altura"
         android:inputType="text"
@@ -86,23 +86,33 @@
         android:id="@+id/calcular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:text="Calcular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/altura" />
+
+    <Button
+        android:id="@+id/exportar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Exportar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calcular" />
 
     <TextView
         android:id="@+id/resultado"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="20dp"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calcular" />
+        app:layout_constraintTop_toBottomOf="@+id/exportar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
